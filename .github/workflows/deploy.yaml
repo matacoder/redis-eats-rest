@@ -1,4 +1,4 @@
-name: Django-Starter workflow
+name: Redis Eats workflow
 
 on:
   push:
