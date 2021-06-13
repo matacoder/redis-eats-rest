@@ -1,5 +1,5 @@
 version: '3.9'
-# run docker-compose up to start development at http://127.0.0.1:1111
+# run docker-compose up to start development at http://127.0.0.1:1133
 
 volumes:
   postgres_data:
@@ -29,7 +29,7 @@ services:
   nginx:
     image: nginx:1.19.0-alpine
     ports:
-      - "127.0.0.1:1111:80"
+      - "127.0.0.1:1133:80"
     volumes:
       - ./static:/code/static
       - ./media:/code/media
