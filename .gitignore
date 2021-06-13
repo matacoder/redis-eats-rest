@@ -8,3 +8,6 @@ static/admin/*
 /.idea/
 /static/debug_toolbar/
 /.env.prod
+/static/admin/
+/static/debug_toolbar/
+/static/rest_framework/
