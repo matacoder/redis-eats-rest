@@ -38,7 +38,7 @@ class Transaction(models.Model):
         Dish, on_delete=models.SET_DEFAULT, default=None, verbose_name="Блюдо"
     )
     amount = models.DecimalField(
-        default=0, decimal_places=2, verbose_name="Покупка блюда", max_digits=19
+        default=0, decimal_places=2, verbose_name="Сумма транзакции", max_digits=19
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
@@ -59,7 +59,10 @@ class Transaction(models.Model):
 
 class Cashflow(models.Model):
     amount = models.DecimalField(
-        default=0, decimal_places=2, verbose_name="Пополнение счета", max_digits=19
+        default=0,
+        decimal_places=2,
+        verbose_name="Введите сумму пополнения",
+        max_digits=19,
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
