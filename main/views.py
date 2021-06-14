@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from rest_framework import viewsets, permissions
+from rest_framework import permissions, viewsets
 
-from main.models import User, Dish, Transaction, Cashflow
-from main.serializers import UserSerializer, DishSerializer, TransactionSerializer, CashflowSerializer
+from main.models import Cashflow, Dish, Transaction, User
+from main.serializers import (CashflowSerializer, DishSerializer,
+                              TransactionSerializer, UserSerializer)
 
 
 def index(request):
@@ -13,6 +14,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
+
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
