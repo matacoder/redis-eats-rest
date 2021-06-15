@@ -11,3 +11,4 @@ static/admin/*
 /static/admin/
 /static/debug_toolbar/
 /static/rest_framework/
+/static/rest_framework_swagger/
