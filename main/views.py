@@ -2,10 +2,18 @@ from django.shortcuts import get_object_or_404, render
 from rest_framework import permissions, viewsets
 
 from main.models import Cashflow, Dish, Transaction, User
-from main.permissions import (AccountantPermission, CookPermissionOrReadOnly,
-                              IsOwnerOrAccountantPermission)
-from main.serializers import (CashflowSerializer, DishSerializer,
-                              TransactionSerializer, UserSerializer)
+from main.permissions import (
+    AccountantPermission,
+    CookPermissionOrReadOnly,
+    IsOwnerOrAccountantPermission,
+    ReadOnly,
+)
+from main.serializers import (
+    CashflowSerializer,
+    DishSerializer,
+    TransactionSerializer,
+    UserSerializer,
+)
 
 
 def index(request):
@@ -19,7 +27,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated, AccountantPermission]
+    permission_classes = [permissions.IsAuthenticated, ReadOnly]
 
 
 class DishViewSet(viewsets.ModelViewSet):
