@@ -5,6 +5,7 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
 )
 from rest_framework import routers
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from main import views
 
@@ -19,12 +20,12 @@ router.register(r"dishes", views.DishViewSet)
 router.register(r"transactions", views.TransactionViewSet)
 router.register(r"cashflows", views.CashflowViewSet)
 
-# Wire up our API using automatic URL routing.
-# Additionally, we include login URLs for the browsable API.
+# API v1
 urlpatterns += [
     path("api/v1/", include(router.urls)),
 ]
 
+# Swagger/ReDoc
 urlpatterns += [
     # YOUR PATTERNS
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
@@ -39,4 +40,10 @@ urlpatterns += [
         SpectacularRedocView.as_view(url_name="schema"),
         name="redoc",
     ),
+]
+
+# SimpleJWT
+urlpatterns += [
+    path("api/v1/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/v1/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]
