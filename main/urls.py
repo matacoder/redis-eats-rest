@@ -1,5 +1,6 @@
 from django.urls import include, path
 from rest_framework import routers
+from rest_framework_swagger.views import get_swagger_view
 
 from main import views
 
@@ -19,3 +20,7 @@ router.register(r"cashflows", views.CashflowViewSet)
 urlpatterns += [
     path("api/v1/", include(router.urls)),
 ]
+
+schema_view = get_swagger_view(title="Pastebin API")
+
+urlpatterns += [path("swagger/", schema_view)]

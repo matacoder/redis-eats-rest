@@ -17,6 +17,7 @@ djangorestframework = "^3.12.4"
 Markdown = "^3.3.4"
 django-filter = "^2.4.0"
 Pillow = "^8.2.0"
+django-rest-swagger = "^2.2.0"
 
 [tool.poetry.dev-dependencies]
 
