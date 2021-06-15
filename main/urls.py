@@ -1,6 +1,7 @@
 from django.urls import include, path
+from drf_spectacular.views import (SpectacularAPIView, SpectacularRedocView,
+                                   SpectacularSwaggerView)
 from rest_framework import routers
-from rest_framework_swagger.views import get_swagger_view
 
 from main import views
 
@@ -21,6 +22,18 @@ urlpatterns += [
     path("api/v1/", include(router.urls)),
 ]
 
-schema_view = get_swagger_view(title="Pastebin API")
-
-urlpatterns += [path("swagger/", schema_view)]
+urlpatterns += [
+    # YOUR PATTERNS
+    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+    # Optional UI:
+    path(
+        "api/schema/swagger-ui/",
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
+    path(
+        "api/schema/redoc/",
+        SpectacularRedocView.as_view(url_name="schema"),
+        name="redoc",
+    ),
+]

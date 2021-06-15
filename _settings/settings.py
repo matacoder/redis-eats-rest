@@ -47,9 +47,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "drf_spectacular",
     "crispy_forms",
     "rest_framework",
-    "rest_framework_swagger",
 ]
 
 AUTH_USER_MODEL = "main.User"
@@ -71,9 +71,16 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
     ],
-    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 30,
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Redis Eats API",
+    "DESCRIPTION": "Redis API for iOS App",
+    "VERSION": "1.0.0",
+    # OTHER SETTINGS
 }
 
 ROOT_URLCONF = "_settings.urls"
@@ -90,9 +97,6 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
             ],
-            "libraries": {
-                "staticfiles": "django.templatetags.static",
-            },
         },
     },
 ]

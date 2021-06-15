@@ -29,7 +29,10 @@
                     <a class="nav-link" href="/api/v1/">API endpoints</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/swagger/">Swagger</a>
+                    <a class="nav-link" href="{% url "swagger-ui" %}">Swagger</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "redoc" %}">ReDoc</a>
                 </li>
 
             </ul>
