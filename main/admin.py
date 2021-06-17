@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from main.models import Cashflow, Dish, Transaction, User, DishDateLink
+from main.models import Cashflow, Dish, DishDateLink, Transaction, User
 
 
 class UserAdmin(admin.ModelAdmin):

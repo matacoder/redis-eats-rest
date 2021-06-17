@@ -52,7 +52,9 @@ class Transaction(models.Model):
     amount = models.DecimalField(
         default=0, decimal_places=2, verbose_name="Сумма транзакции", max_digits=19
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="transactions"
+    )
     date_created = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
@@ -76,7 +78,8 @@ class Cashflow(models.Model):
         verbose_name="Введите сумму пополнения",
         max_digits=19,
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="cashflows")
+    date_created = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
         self.user.cash += self.amount
