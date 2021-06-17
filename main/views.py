@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from rest_framework import permissions, viewsets
 
-from main.models import Cashflow, Dish, Transaction, User
+from main.models import Cashflow, Dish, Transaction, User, DishDateLink
 from main.permissions import (
     AccountantPermission,
     CookPermissionOrReadOnly,
@@ -12,7 +12,7 @@ from main.serializers import (
     CashflowSerializer,
     DishSerializer,
     TransactionSerializer,
-    UserSerializer,
+    UserSerializer, DishDateLinkSerializer,
 )
 
 
@@ -34,6 +34,12 @@ class DishViewSet(viewsets.ModelViewSet):
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
     permission_classes = [permissions.IsAuthenticated, CookPermissionOrReadOnly]
+
+
+class DishDateLinkViewSet(viewsets.ModelViewSet):
+    queryset = DishDateLink.objects.all()
+    serializer_class = DishDateLinkSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class TransactionViewSet(viewsets.ModelViewSet):

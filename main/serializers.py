@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from main.models import Cashflow, Dish, Transaction, User
+from main.models import Cashflow, Dish, Transaction, User, DishDateLink
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -18,6 +18,12 @@ class UserSerializer(serializers.ModelSerializer):
 class DishSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dish
+        fields = "__all__"
+
+
+class DishDateLinkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DishDateLink
         fields = "__all__"
 
 

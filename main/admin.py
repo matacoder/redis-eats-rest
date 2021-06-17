@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from main.models import Cashflow, Dish, Transaction, User
+from main.models import Cashflow, Dish, Transaction, User, DishDateLink
 
 
 class UserAdmin(admin.ModelAdmin):
@@ -8,6 +8,10 @@ class UserAdmin(admin.ModelAdmin):
 
 
 class DishAdmin(admin.ModelAdmin):
+    pass
+
+
+class DishDateLinkAdmin(admin.ModelAdmin):
     pass
 
 
@@ -20,6 +24,7 @@ class CashflowAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Dish, DishAdmin)
+admin.site.register(DishDateLink, DishAdmin)
 admin.site.register(User, UserAdmin)
 admin.site.register(Transaction, TransactionAdmin)
 admin.site.register(Cashflow, CashflowAdmin)

@@ -33,9 +33,21 @@ class Dish(models.Model):
         return f"{self.name} по цене {self.price}"
 
 
+class DishDateLink(models.Model):
+    dish = models.ForeignKey(Dish, on_delete=models.SET_DEFAULT, default=None)
+    date = models.DateField(verbose_name="Дата планируемой подачи блюда")
+    is_ready = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.dish.name} запланировано на {self.date}. Готовность: {self.is_ready}"
+
+
 class Transaction(models.Model):
-    dish = models.ForeignKey(
-        Dish, on_delete=models.SET_DEFAULT, default=None, verbose_name="Блюдо"
+    dish_date_link = models.ForeignKey(
+        DishDateLink,
+        on_delete=models.SET_DEFAULT,
+        default=None,
+        verbose_name="Дата и блюдо",
     )
     amount = models.DecimalField(
         default=0, decimal_places=2, verbose_name="Сумма транзакции", max_digits=19
@@ -54,7 +66,7 @@ class Transaction(models.Model):
         super(Transaction, self).delete(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.user.get_full_name()} заказал {self.dish.name} на {self.amount}"
+        return f"{self.user.get_full_name()} заказал {self.dish_date_link.dish.name} на {self.amount}"
 
 
 class Cashflow(models.Model):
@@ -77,4 +89,4 @@ class Cashflow(models.Model):
         super(Cashflow, self).delete(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.user} пополнил счет на {self.amount}"
+        return f"{self.user.get_full_name()} пополнил счет на {self.amount}"

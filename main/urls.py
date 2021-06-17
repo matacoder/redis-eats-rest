@@ -17,6 +17,7 @@ urlpatterns = [
 router = routers.DefaultRouter()
 router.register(r"users", views.UserViewSet)
 router.register(r"dishes", views.DishViewSet)
+router.register(r"dishdatelinks", views.DishDateLinkViewSet)
 router.register(r"transactions", views.TransactionViewSet)
 router.register(r"cashflows", views.CashflowViewSet)
 
