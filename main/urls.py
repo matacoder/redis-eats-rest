@@ -17,9 +17,13 @@ urlpatterns = [
 router = routers.DefaultRouter()
 router.register(r"users", views.UserViewSet)
 router.register(r"dishes", views.DishViewSet)
-router.register(r"dishdatelinks", views.DishDateLinkViewSet)
+router.register(r"dish-date-links", views.DishDateLinkViewSet)
 router.register(r"transactions", views.TransactionViewSet)
-router.register(r"cashflows", views.CashflowViewSet)
+router.register(r"cash-flows", views.CashflowViewSet)
+router.register(r"dish-types", views.DishTypeViewSet)
+router.register(r"suppliers", views.SupplierViewSet)
+router.register(r"ingredients", views.IngredientViewSet)
+router.register(r"ingredient-types", views.IngredientTypeViewSet)
 
 # API v1
 urlpatterns += [

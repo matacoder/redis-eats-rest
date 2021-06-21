@@ -1,24 +1,34 @@
 from rest_framework import serializers
 
-from main.models import Cashflow, Dish, DishDateLink, Transaction, User, DishType, IngredientType, Supplier, Ingredient
+from main.models import (
+    Cashflow,
+    Dish,
+    DishDateLink,
+    Transaction,
+    User,
+    DishType,
+    IngredientType,
+    Supplier,
+    Ingredient,
+)
 
 
 class DishTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = DishType
-        fields = '__all__'
+        fields = "__all__"
 
 
 class IngredientTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = IngredientType
-        fields = '__all__'
+        fields = "__all__"
 
 
 class SupplierSerializer(serializers.ModelSerializer):
     class Meta:
         model = Supplier
-        fields = '__all__'
+        fields = "__all__"
 
 
 class IngredientSerializer(serializers.ModelSerializer):
@@ -27,7 +37,7 @@ class IngredientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ingredient
-        fields = '__all__'
+        fields = "__all__"
 
 
 class DishSerializer(serializers.ModelSerializer):

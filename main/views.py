@@ -1,12 +1,23 @@
 from django.shortcuts import get_object_or_404, render
 from rest_framework import permissions, viewsets
 
-from main.models import Cashflow, Dish, DishDateLink, Transaction, User
+from main.models import (
+    Cashflow,
+    Dish,
+    DishDateLink,
+    Transaction,
+    User,
+    DishType,
+    Supplier,
+    Ingredient,
+    IngredientType,
+)
 from main.permissions import (
     AccountantPermission,
     CookPermissionOrReadOnly,
     IsOwnerOrAccountantPermission,
-    ReadOnly, MainSwitchPermission,
+    ReadOnly,
+    MainSwitchPermission,
 )
 from main.serializers import (
     CashflowSerializer,
@@ -14,6 +25,10 @@ from main.serializers import (
     DishSerializer,
     TransactionSerializer,
     UserSerializer,
+    DishTypeSerializer,
+    SupplierSerializer,
+    IngredientSerializer,
+    IngredientTypeSerializer,
 )
 
 
@@ -34,19 +49,71 @@ class UserViewSet(viewsets.ModelViewSet):
 class DishViewSet(viewsets.ModelViewSet):
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
-    permission_classes = [permissions.IsAuthenticated, CookPermissionOrReadOnly, MainSwitchPermission]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        CookPermissionOrReadOnly,
+        MainSwitchPermission,
+    ]
+
+
+class DishTypeViewSet(viewsets.ModelViewSet):
+    queryset = DishType.objects.all()
+    serializer_class = DishTypeSerializer
+    permission_classes = [
+        permissions.IsAuthenticated,
+        CookPermissionOrReadOnly,
+        MainSwitchPermission,
+    ]
+
+
+class SupplierViewSet(viewsets.ModelViewSet):
+    queryset = Supplier.objects.all()
+    serializer_class = SupplierSerializer
+    permission_classes = [
+        permissions.IsAuthenticated,
+        CookPermissionOrReadOnly,
+        MainSwitchPermission,
+    ]
+
+
+class IngredientViewSet(viewsets.ModelViewSet):
+    queryset = Ingredient.objects.all()
+    serializer_class = IngredientSerializer
+    permission_classes = [
+        permissions.IsAuthenticated,
+        CookPermissionOrReadOnly,
+        MainSwitchPermission,
+    ]
+
+
+class IngredientTypeViewSet(viewsets.ModelViewSet):
+    queryset = IngredientType.objects.all()
+    serializer_class = IngredientTypeSerializer
+    permission_classes = [
+        permissions.IsAuthenticated,
+        CookPermissionOrReadOnly,
+        MainSwitchPermission,
+    ]
 
 
 class DishDateLinkViewSet(viewsets.ModelViewSet):
     queryset = DishDateLink.objects.all()
     serializer_class = DishDateLinkSerializer
-    permission_classes = [permissions.IsAuthenticated, CookPermissionOrReadOnly, MainSwitchPermission]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        CookPermissionOrReadOnly,
+        MainSwitchPermission,
+    ]
 
 
 class TransactionViewSet(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
-    permission_classes = [permissions.IsAuthenticated, IsOwnerOrAccountantPermission, MainSwitchPermission]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        IsOwnerOrAccountantPermission,
+        MainSwitchPermission,
+    ]
 
     def perform_create(self, serializer):
         dish_id = int(self.request.data.get("dish"))
