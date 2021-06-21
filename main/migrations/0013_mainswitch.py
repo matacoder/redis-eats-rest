@@ -6,15 +6,29 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('main', '0012_auto_20210621_0955'),
+        ("main", "0012_auto_20210621_0955"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='MainSwitch',
+            name="MainSwitch",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('is_app_online', models.BooleanField(default=True, verbose_name='Главный переключатель приложения. Можем оформлять заказы?')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "is_app_online",
+                    models.BooleanField(
+                        default=True,
+                        verbose_name="Главный переключатель приложения. Можем оформлять заказы?",
+                    ),
+                ),
             ],
         ),
     ]
