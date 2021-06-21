@@ -18,6 +18,14 @@ class User(AbstractUser):
         return f"{self.get_full_name() or self.username} с балансом: {self.cash}"
 
 
+class MainSwitch(models.Model):
+    is_app_online = models.BooleanField(
+        default=True,
+        null=False,
+        verbose_name="Главный переключатель приложения. Можем оформлять заказы?",
+    )
+
+
 class DishType(models.Model):
     name = models.CharField(max_length=100, verbose_name="Тип блюда")
     picture = models.ImageField(verbose_name="Изображение типа блюда")
