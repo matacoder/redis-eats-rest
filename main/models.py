@@ -133,7 +133,7 @@ class Cashflow(models.Model):
         verbose_name="Введите сумму пополнения",
         max_digits=19,
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="cash_flows")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="cashflows")
     date_created = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
@@ -148,12 +148,3 @@ class Cashflow(models.Model):
 
     def __str__(self):
         return f"{self.user.get_full_name()} пополнил счет на {self.amount}"
-
-
-class NotificationToken(models.Model):
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, verbose_name="Пользователь",
-    )
-    token = models.CharField(
-        max_length=200, verbose_name="Токен для отправки сообщений",
-    )

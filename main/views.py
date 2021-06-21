@@ -1,17 +1,35 @@
 from django.shortcuts import get_object_or_404, render
 from rest_framework import permissions, viewsets
 
-from main.models import (Cashflow, Dish, DishDateLink, DishType, Ingredient,
-                         IngredientType, NotificationToken, Supplier,
-                         Transaction, User)
-from main.permissions import (AccountantPermission, CookPermissionOrReadOnly,
-                              IsOwnerOrAccountantPermission,
-                              MainSwitchPermission, ReadOnly)
-from main.serializers import (CashflowSerializer, DishDateLinkSerializer,
-                              DishSerializer, DishTypeSerializer,
-                              IngredientSerializer, IngredientTypeSerializer,
-                              NotificationTokenSerializer, SupplierSerializer,
-                              TransactionSerializer, UserSerializer)
+from main.models import (
+    Cashflow,
+    Dish,
+    DishDateLink,
+    Transaction,
+    User,
+    DishType,
+    Supplier,
+    Ingredient,
+    IngredientType,
+)
+from main.permissions import (
+    AccountantPermission,
+    CookPermissionOrReadOnly,
+    IsOwnerOrAccountantPermission,
+    ReadOnly,
+    MainSwitchPermission,
+)
+from main.serializers import (
+    CashflowSerializer,
+    DishDateLinkSerializer,
+    DishSerializer,
+    TransactionSerializer,
+    UserSerializer,
+    DishTypeSerializer,
+    SupplierSerializer,
+    IngredientSerializer,
+    IngredientTypeSerializer,
+)
 
 
 def index(request):
@@ -45,14 +63,6 @@ class DishTypeViewSet(viewsets.ModelViewSet):
         permissions.IsAuthenticated,
         CookPermissionOrReadOnly,
         MainSwitchPermission,
-    ]
-
-
-class NotificationTokenViewSet(viewsets.ModelViewSet):
-    queryset = NotificationToken.objects.all()
-    serializer_class = NotificationTokenSerializer
-    permission_classes = [
-        permissions.IsAuthenticated,
     ]
 
 

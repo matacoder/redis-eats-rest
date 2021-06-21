@@ -1,8 +1,17 @@
 from django.contrib import admin
 
-from main.models import (Cashflow, Dish, DishDateLink, DishType, Ingredient,
-                         IngredientType, MainSwitch, Supplier, Transaction,
-                         User)
+from main.models import (
+    Cashflow,
+    Dish,
+    DishDateLink,
+    Transaction,
+    User,
+    MainSwitch,
+    DishType,
+    IngredientType,
+    Supplier,
+    Ingredient,
+)
 
 
 class UserAdmin(admin.ModelAdmin):
