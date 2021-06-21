@@ -1,4 +1,21 @@
+import logging
+
 from rest_framework import permissions
+
+from main.models import MainSwitch
+
+
+class MainSwitchPermission(permissions.BasePermission):
+    def has_permission(self, request, view):
+        # if request.method in permissions.SAFE_METHODS:
+        #     return True
+        try:
+            return MainSwitch.objects.latest()
+        except Exception as e:
+            logging.debug(e)
+            switch = MainSwitch.objects.create(is_app_online=True)
+            switch.save()
+            return switch.is_app_online
 
 
 class ReadOnly(permissions.BasePermission):

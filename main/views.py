@@ -6,7 +6,7 @@ from main.permissions import (
     AccountantPermission,
     CookPermissionOrReadOnly,
     IsOwnerOrAccountantPermission,
-    ReadOnly,
+    ReadOnly, MainSwitchPermission,
 )
 from main.serializers import (
     CashflowSerializer,
@@ -28,25 +28,25 @@ class UserViewSet(viewsets.ModelViewSet):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated, ReadOnly]
+    permission_classes = [permissions.IsAuthenticated, ReadOnly, MainSwitchPermission]
 
 
 class DishViewSet(viewsets.ModelViewSet):
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
-    permission_classes = [permissions.IsAuthenticated, CookPermissionOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated, CookPermissionOrReadOnly, MainSwitchPermission]
 
 
 class DishDateLinkViewSet(viewsets.ModelViewSet):
     queryset = DishDateLink.objects.all()
     serializer_class = DishDateLinkSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, CookPermissionOrReadOnly, MainSwitchPermission]
 
 
 class TransactionViewSet(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
-    permission_classes = [permissions.IsAuthenticated, IsOwnerOrAccountantPermission]
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrAccountantPermission, MainSwitchPermission]
 
     def perform_create(self, serializer):
         dish_id = int(self.request.data.get("dish"))
