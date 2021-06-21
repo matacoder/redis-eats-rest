@@ -4,6 +4,7 @@ from drf_spectacular.views import (
     SpectacularRedocView,
     SpectacularSwaggerView,
 )
+from fcm_django.api.rest_framework import FCMDeviceAuthorizedViewSet
 from rest_framework import routers
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
@@ -24,6 +25,7 @@ router.register(r"dish-types", views.DishTypeViewSet)
 router.register(r"suppliers", views.SupplierViewSet)
 router.register(r"ingredients", views.IngredientViewSet)
 router.register(r"ingredient-types", views.IngredientTypeViewSet)
+router.register(r'devices', FCMDeviceAuthorizedViewSet)
 
 # API v1
 urlpatterns += [
