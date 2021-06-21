@@ -1,16 +1,8 @@
 from rest_framework import serializers
 
-from main.models import (
-    Cashflow,
-    Dish,
-    DishDateLink,
-    Transaction,
-    User,
-    DishType,
-    IngredientType,
-    Supplier,
-    Ingredient,
-)
+from main.models import (Cashflow, Dish, DishDateLink, DishType, Ingredient,
+                         IngredientType, NotificationToken, Supplier,
+                         Transaction, User)
 
 
 class DishTypeSerializer(serializers.ModelSerializer):
@@ -76,7 +68,7 @@ class CashflowSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    cashflows = CashflowSerializer(many=True, read_only=True)
+    cash_flows = CashflowSerializer(many=True, read_only=True)
     transactions = TransactionSerializer(many=True, read_only=True)
 
     class Meta:
@@ -87,6 +79,12 @@ class UserSerializer(serializers.ModelSerializer):
             "last_name",
             "username",
             "cash",
-            "cashflows",
+            "cash_flows",
             "transactions",
         )
+
+
+class NotificationTokenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NotificationToken
+        fields = "__all__"
