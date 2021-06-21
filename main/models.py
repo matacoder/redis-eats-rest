@@ -23,6 +23,30 @@ class DishType(models.Model):
     picture = models.ImageField(verbose_name="Изображение типа блюда")
 
 
+class IngredientType(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Тип ингредиента")
+    picture = models.ImageField(verbose_name="Изображение типа ингредиента")
+
+
+class Ingredient(models.Model):
+    """Ingredient model"""
+
+    name = models.CharField(max_length=255, verbose_name="Имя ингредиента", unique=True)
+    measure = models.CharField(max_length=30, verbose_name="Размерность")
+    price = models.DecimalField(
+        decimal_places=2, verbose_name="Цена ингредиента", max_digits=10
+    )
+    type = models.ForeignKey(
+        IngredientType,
+        on_delete=models.SET_DEFAULT,
+        default=None,
+        verbose_name="Тип ингредиента",
+    )
+
+    def __str__(self):
+        return f"Ingredient: {self.name} ({self.measure})"
+
+
 class Dish(models.Model):
     name = models.CharField(
         default="New Dish", verbose_name="Имя блюда", max_length=100
