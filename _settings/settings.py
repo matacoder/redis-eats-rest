@@ -51,7 +51,13 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "crispy_forms",
     "rest_framework",
+    "fcm_django",
 ]
+
+FCM_DJANGO_SETTINGS = {
+        "FCM_SERVER_KEY": os.environ.get("FIREBASE")
+}
+
 
 AUTH_USER_MODEL = "main.User"
 

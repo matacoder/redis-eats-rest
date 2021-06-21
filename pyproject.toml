@@ -19,6 +19,7 @@ django-filter = "^2.4.0"
 Pillow = "^8.2.0"
 drf-spectacular = "^0.17.1"
 djangorestframework-simplejwt = "^4.7.1"
+fcm-django = "^0.3.10"
 
 [tool.poetry.dev-dependencies]
 
