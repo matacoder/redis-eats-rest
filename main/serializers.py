@@ -1,10 +1,39 @@
-from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
-from main.models import Cashflow, Dish, DishDateLink, Transaction, User
+from main.models import Cashflow, Dish, DishDateLink, Transaction, User, DishType, IngredientType, Supplier, Ingredient
+
+
+class DishTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DishType
+        fields = '__all__'
+
+
+class IngredientTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = IngredientType
+        fields = '__all__'
+
+
+class SupplierSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Supplier
+        fields = '__all__'
+
+
+class IngredientSerializer(serializers.ModelSerializer):
+    type = IngredientTypeSerializer()
+    supplier = SupplierSerializer()
+
+    class Meta:
+        model = Ingredient
+        fields = '__all__'
 
 
 class DishSerializer(serializers.ModelSerializer):
+    type = DishTypeSerializer()
+    ingredients = IngredientSerializer(many=True)
+
     class Meta:
         model = Dish
         fields = "__all__"

@@ -2,6 +2,14 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
+class MainSwitch(models.Model):
+    is_app_online = models.BooleanField(
+        default=True,
+        null=False,
+        verbose_name="Главный переключатель приложения. Можем оформлять заказы?",
+    )
+
+
 class User(AbstractUser):
     is_accountant = models.BooleanField(
         default=False, verbose_name="Это бухгалтер", blank=True
@@ -16,19 +24,6 @@ class User(AbstractUser):
 
     def __str__(self):
         return f"{self.get_full_name() or self.username} с балансом: {self.cash}"
-
-
-class MainSwitch(models.Model):
-    is_app_online = models.BooleanField(
-        default=True,
-        null=False,
-        verbose_name="Главный переключатель приложения. Можем оформлять заказы?",
-    )
-
-
-class DishType(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Тип блюда")
-    picture = models.ImageField(verbose_name="Изображение типа блюда")
 
 
 class IngredientType(models.Model):
@@ -68,6 +63,11 @@ class Ingredient(models.Model):
 
     def __str__(self):
         return f"Ingredient: {self.name} ({self.measure})"
+
+
+class DishType(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Тип блюда")
+    picture = models.ImageField(verbose_name="Изображение типа блюда")
 
 
 class Dish(models.Model):
