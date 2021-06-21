@@ -2,11 +2,19 @@ from django.shortcuts import get_object_or_404, render
 from rest_framework import permissions, viewsets
 
 from main.models import Cashflow, Dish, DishDateLink, Transaction, User
-from main.permissions import (AccountantPermission, CookPermissionOrReadOnly,
-                              IsOwnerOrAccountantPermission, ReadOnly)
-from main.serializers import (CashflowSerializer, DishDateLinkSerializer,
-                              DishSerializer, TransactionSerializer,
-                              UserSerializer)
+from main.permissions import (
+    AccountantPermission,
+    CookPermissionOrReadOnly,
+    IsOwnerOrAccountantPermission,
+    ReadOnly,
+)
+from main.serializers import (
+    CashflowSerializer,
+    DishDateLinkSerializer,
+    DishSerializer,
+    TransactionSerializer,
+    UserSerializer,
+)
 
 
 def index(request):

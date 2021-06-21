@@ -18,6 +18,11 @@ class User(AbstractUser):
         return f"{self.get_full_name()} с балансом: {self.cash}"
 
 
+class DishType(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Тип блюда")
+    picture = models.ImageField(verbose_name="Изображение типа блюда")
+
+
 class Dish(models.Model):
     name = models.CharField(
         default="New Dish", verbose_name="Имя блюда", max_length=100
@@ -28,6 +33,9 @@ class Dish(models.Model):
         decimal_places=2, verbose_name="Цена блюда", max_digits=10
     )
     date_created = models.DateTimeField(auto_now_add=True)
+    type = models.ForeignKey(
+        DishType, on_delete=models.SET_DEFAULT, default=None, verbose_name="Тип блюда"
+    )
 
     def __str__(self):
         return f"{self.name} по цене {self.price}"
