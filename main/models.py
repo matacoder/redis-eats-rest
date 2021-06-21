@@ -15,7 +15,7 @@ class User(AbstractUser):
     )
 
     def __str__(self):
-        return f"{self.get_full_name()} с балансом: {self.cash}"
+        return f"{self.get_full_name() or self.username} с балансом: {self.cash}"
 
 
 class DishType(models.Model):
@@ -26,6 +26,15 @@ class DishType(models.Model):
 class IngredientType(models.Model):
     name = models.CharField(max_length=100, verbose_name="Тип ингредиента")
     picture = models.ImageField(verbose_name="Изображение типа ингредиента")
+
+
+class Supplier(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Имя поставщика")
+    picture = models.ImageField(verbose_name="Изображение поставщика")
+    description = models.TextField(verbose_name="Описание поставщика")
+    phone = models.CharField(max_length=100, verbose_name="Телефон поставщика")
+    site = models.CharField(max_length=100, verbose_name="Сайт поставщика")
+    address = models.CharField(max_length=200, verbose_name="Адрес поставщика")
 
 
 class Ingredient(models.Model):
@@ -41,6 +50,12 @@ class Ingredient(models.Model):
         on_delete=models.SET_DEFAULT,
         default=None,
         verbose_name="Тип ингредиента",
+    )
+    supplier = models.ForeignKey(
+        Supplier,
+        on_delete=models.SET_DEFAULT,
+        default=None,
+        verbose_name="Поставщик",
     )
 
     def __str__(self):
