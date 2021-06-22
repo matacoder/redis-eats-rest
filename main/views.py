@@ -5,30 +5,30 @@ from main.models import (
     Cashflow,
     Dish,
     DishDateLink,
-    Transaction,
-    User,
     DishType,
-    Supplier,
     Ingredient,
     IngredientType,
+    Supplier,
+    Transaction,
+    User,
 )
 from main.permissions import (
     AccountantPermission,
     CookPermissionOrReadOnly,
     IsOwnerOrAccountantPermission,
-    ReadOnly,
     MainSwitchPermission,
+    ReadOnly,
 )
 from main.serializers import (
     CashflowSerializer,
     DishDateLinkSerializer,
     DishSerializer,
-    TransactionSerializer,
-    UserSerializer,
     DishTypeSerializer,
-    SupplierSerializer,
     IngredientSerializer,
     IngredientTypeSerializer,
+    SupplierSerializer,
+    TransactionSerializer,
+    UserSerializer,
 )
 
 

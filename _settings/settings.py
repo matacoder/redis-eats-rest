@@ -54,9 +54,7 @@ INSTALLED_APPS = [
     "fcm_django",
 ]
 
-FCM_DJANGO_SETTINGS = {
-        "FCM_SERVER_KEY": os.environ.get("FIREBASE")
-}
+FCM_DJANGO_SETTINGS = {"FCM_SERVER_KEY": os.environ.get("FIREBASE")}
 
 
 AUTH_USER_MODEL = "main.User"

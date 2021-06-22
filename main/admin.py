@@ -4,13 +4,13 @@ from main.models import (
     Cashflow,
     Dish,
     DishDateLink,
+    DishType,
+    Ingredient,
+    IngredientType,
+    MainSwitch,
+    Supplier,
     Transaction,
     User,
-    MainSwitch,
-    DishType,
-    IngredientType,
-    Supplier,
-    Ingredient,
 )
 
 
@@ -63,3 +63,4 @@ admin.site.register(DishType, CashflowAdmin)
 admin.site.register(IngredientType, CashflowAdmin)
 admin.site.register(Supplier, CashflowAdmin)
 admin.site.register(Ingredient, CashflowAdmin)
+admin.site.register(Cashflow, CashflowAdmin)

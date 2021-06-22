@@ -4,12 +4,12 @@ from main.models import (
     Cashflow,
     Dish,
     DishDateLink,
-    Transaction,
-    User,
     DishType,
+    Ingredient,
     IngredientType,
     Supplier,
-    Ingredient,
+    Transaction,
+    User,
 )
 
 

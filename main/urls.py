@@ -25,7 +25,7 @@ router.register(r"dish-types", views.DishTypeViewSet)
 router.register(r"suppliers", views.SupplierViewSet)
 router.register(r"ingredients", views.IngredientViewSet)
 router.register(r"ingredient-types", views.IngredientTypeViewSet)
-router.register(r'devices', FCMDeviceAuthorizedViewSet)
+router.register(r"devices", FCMDeviceAuthorizedViewSet)
 
 # API v1
 urlpatterns += [
