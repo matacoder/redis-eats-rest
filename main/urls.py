@@ -1,3 +1,4 @@
+from django.conf.urls import url
 from django.urls import include, path
 from drf_spectacular.views import (
     SpectacularAPIView,
@@ -47,6 +48,7 @@ urlpatterns += [
         SpectacularRedocView.as_view(url_name="schema"),
         name="redoc",
     ),
+    url("control/", views.control_panel, name="control"),
 ]
 
 # SimpleJWT

@@ -128,3 +128,7 @@ class CashflowViewSet(viewsets.ModelViewSet):
     queryset = Cashflow.objects.all()
     serializer_class = CashflowSerializer
     permission_classes = [permissions.IsAuthenticated, AccountantPermission]
+
+
+def control_panel(request):
+    return render(request, template_name="control.html")
