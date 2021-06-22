@@ -5,7 +5,16 @@
 
 {% block content %}
     <div class="container my-5">
-        <p>Размещение заказов включено. [Выключить!]</p>
+        {% if main_switch %}
+            <p>Размещение заказов включено.</p>
+        {% else %}
+            <p>Размещение заказов выключено.</p>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="switch" value="True">
+            <input type="submit" value="Изменить">
+        </form>
 
         <p>Удалить все заказы с этой даты: ДАТА. [Удалить!]</p>
     </div>

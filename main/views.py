@@ -11,6 +11,7 @@ from main.models import (
     Supplier,
     Transaction,
     User,
+    MainSwitch,
 )
 from main.permissions import (
     AccountantPermission,
@@ -30,6 +31,7 @@ from main.serializers import (
     TransactionSerializer,
     UserSerializer,
 )
+from main.services import get_main_switch_status
 
 
 def index(request):
@@ -131,4 +133,15 @@ class CashflowViewSet(viewsets.ModelViewSet):
 
 
 def control_panel(request):
-    return render(request, template_name="control.html")
+    data = dict()
+    data["main_switch"] = get_main_switch_status()
+    if request.method == "POST":
+        if request.POST.get("switch"):
+            switch = MainSwitch.objects.latest("id")
+            if data["main_switch"]:
+                switch.is_app_online = False
+            else:
+                switch.is_app_online = True
+            switch.save()
+    data["main_switch"] = get_main_switch_status()
+    return render(request, template_name="control.html", context=data)
