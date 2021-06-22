@@ -5,17 +5,27 @@
 
 {% block content %}
     <div class="container my-5">
+        <h2>Размещение заказов</h2>
         {% if main_switch %}
             <p>Размещение заказов включено.</p>
         {% else %}
             <p>Размещение заказов выключено.</p>
         {% endif %}
+        <p>
         <form method="POST">
             {% csrf_token %}
             <input type="hidden" name="switch" value="True">
             <input type="submit" value="Изменить">
         </form>
-
-        <p>Удалить все заказы с этой даты: ДАТА. [Удалить!]</p>
+        </p>
+        <h2>Удалить все заказы и вернуть все деньги:</h2>
+        <p>
+        <form method="POST" action="{% url "delete_orders" %}">
+            {% csrf_token %}
+            <label for="from">С какого числа:</label>
+            <input required name="from" id="from" type="date">
+            <input type="submit" value="Удалить все заказы">
+        </form>
+        </p>
     </div>
 {% endblock %}

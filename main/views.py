@@ -1,4 +1,6 @@
-from django.shortcuts import get_object_or_404, render
+from loguru import logger
+
+from django.shortcuts import get_object_or_404, render, redirect
 from rest_framework import permissions, viewsets
 
 from main.models import (
@@ -31,7 +33,7 @@ from main.serializers import (
     TransactionSerializer,
     UserSerializer,
 )
-from main.services import get_main_switch_status
+from main.services import get_main_switch_status, delete_orders_logic
 
 
 def index(request):
@@ -145,3 +147,10 @@ def control_panel(request):
             switch.save()
     data["main_switch"] = get_main_switch_status()
     return render(request, template_name="control.html", context=data)
+
+
+def delete_orders(request):
+    date = str(request.POST.get("from"))
+    logger.debug(date)
+    delete_orders_logic(date)
+    return redirect("control")

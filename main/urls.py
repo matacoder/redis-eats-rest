@@ -49,6 +49,7 @@ urlpatterns += [
         name="redoc",
     ),
     url("control/", views.control_panel, name="control"),
+    url("delete/", views.delete_orders, name="delete_orders"),
 ]
 
 # SimpleJWT
