@@ -83,9 +83,30 @@ class Dish(models.Model):
     type = models.ForeignKey(
         DishType, on_delete=models.SET_DEFAULT, default=None, verbose_name="Тип блюда"
     )
+    ingredients = models.ManyToManyField(
+        Ingredient, related_name="dishes", through="IngredientAmount"
+    )
 
     def __str__(self):
         return f"{self.name} по цене {self.price}"
+
+
+class IngredientAmount(models.Model):
+    """Support model for Ingredient&Recipe ManyToMany relation"""
+
+    dish = models.ForeignKey(
+        Dish, on_delete=models.CASCADE, related_name="amounts", verbose_name="Dish"
+    )
+    ingredient = models.ForeignKey(
+        Ingredient,
+        on_delete=models.CASCADE,
+        related_name="amounts",
+        verbose_name="Ingredient",
+    )
+    amount = models.DecimalField(max_digits=5, decimal_places=1, verbose_name="Сколько")
+
+    def __str__(self):
+        return f"Количество: {self.ingredient.name} by {self.amount}"
 
 
 class DishDateLink(models.Model):
