@@ -12,17 +12,22 @@
                 {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link"
-                           href="{% url "password_change" %}">Hello, {{ user.username }}</a>
+                           href="{% url "password_change" %}">Привет, {{ user.username }}</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="">Панель управления</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url "logout" %}">Log out</a>
+                        <a class="nav-link" href="{% url "logout" %}">Выйти</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url "signup" %}">Sign Up</a>
+                        <a class="nav-link" href="{% url "signup" %}">Регистрация</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url "login" %}">Login</a>
+                        <a class="nav-link" href="{% url "login" %}">Войти</a>
                     </li>
                 {% endif %}
                 <li class="nav-item">
