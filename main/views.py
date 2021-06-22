@@ -3,6 +3,7 @@ from loguru import logger
 from django.shortcuts import get_object_or_404, render, redirect
 from rest_framework import permissions, viewsets
 
+from main.generate_data import create_data
 from main.models import (
     Cashflow,
     Dish,
@@ -154,3 +155,8 @@ def delete_orders(request):
     logger.debug(date)
     delete_orders_logic(date)
     return redirect("control")
+
+
+def create_fake_data(request):
+    create_data()
+    return redirect("index")

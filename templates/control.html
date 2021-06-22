@@ -24,8 +24,9 @@
             {% csrf_token %}
             <label for="from">С какого числа:</label>
             <input required name="from" id="from" type="date">
-            <input type="submit" value="Удалить все заказы">
+            <input type="submit" value="Удалить все заказы" onsubmit="return confirm('Вы уверены?');">
         </form>
         </p>
+    <a class="btn btn-danger" href="{% url "fake" %}">Сгенерировать данные</a>
     </div>
 {% endblock %}

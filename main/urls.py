@@ -50,6 +50,7 @@ urlpatterns += [
     ),
     url("control/", views.control_panel, name="control"),
     url("delete/", views.delete_orders, name="delete_orders"),
+    url("create-fake-data/", views.create_fake_data, name="fake"),
 ]
 
 # SimpleJWT
