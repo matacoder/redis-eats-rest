@@ -10,7 +10,7 @@ from main.models import (
     MainSwitch,
     Supplier,
     Transaction,
-    User,
+    User, IngredientAmount,
 )
 
 
@@ -54,6 +54,10 @@ class IngredientAdmin(admin.ModelAdmin):
     pass
 
 
+class IngredientAmountAdmin(admin.ModelAdmin):
+    pass
+
+
 admin.site.register(Dish, DishAdmin)
 admin.site.register(DishDateLink, DishAdmin)
 admin.site.register(User, UserAdmin)
@@ -63,4 +67,5 @@ admin.site.register(DishType, CashflowAdmin)
 admin.site.register(IngredientType, CashflowAdmin)
 admin.site.register(Supplier, CashflowAdmin)
 admin.site.register(Ingredient, CashflowAdmin)
+admin.site.register(IngredientAmount, IngredientAmountAdmin)
 admin.site.register(Cashflow, CashflowAdmin)

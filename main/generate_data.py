@@ -1,4 +1,7 @@
+import datetime
 import random
+
+from loguru import logger
 
 from main import models
 
@@ -13,6 +16,7 @@ class UserFactory(DjangoModelFactory):
     first_name = factory.Faker("first_name")
     last_name = factory.Faker("last_name")
     username = factory.Faker("first_name")
+    cash = 10000
 
 
 class IngredientTypeFactory(DjangoModelFactory):
@@ -49,8 +53,29 @@ class DishFactory(DjangoModelFactory):
 
     name = factory.Faker("sentence", nb_words=1, variable_nb_words=True)
     type = factory.SubFactory(DishTypeFactory)
+    price = 600
+
+
+class DishDateLinkFactory(DjangoModelFactory):
+    class Meta:
+        model = models.DishDateLink
+
+    date = datetime.date.today()
+    dish = factory.SubFactory(DishFactory)
+
+
+class TransactionFactory(DjangoModelFactory):
+    class Meta:
+        model = models.Transaction
+    amount = 500
+    dish_date_link = factory.SubFactory(DishDateLinkFactory)
+    user = factory.SubFactory(UserFactory)
 
 
 def create_data():
     for _ in range(10):
-        UserFactory(cash=random.randint(1000, 2000))
+        try:
+            TransactionFactory()
+        except Exception as e:
+            logger.debug(e)
+            pass
