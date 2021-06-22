@@ -38,7 +38,7 @@ jobs:
           docker context use remote
           docker image prune -f
           docker-compose --context remote -f docker-compose-prod.yaml down
-          docker volume rm redis-eats-rest_postgres_data
+
           docker-compose --context remote -f docker-compose-prod.yaml up -d --build --force-recreate
 
   send_message:
