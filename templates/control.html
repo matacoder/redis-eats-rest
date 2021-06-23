@@ -15,7 +15,7 @@
         <form method="POST">
             {% csrf_token %}
             <input type="hidden" name="switch" value="True">
-            <input type="submit" value="Изменить">
+            <input type="submit" value="Изменить" class="btn btn-success">
         </form>
         </p>
         <h2>Удалить все заказы и вернуть все деньги:</h2>
@@ -24,9 +24,13 @@
             {% csrf_token %}
             <label for="from">С какого числа:</label>
             <input required name="from" id="from" type="date">
-            <input type="submit" value="Удалить все заказы" onsubmit="return confirm('Вы уверены?');">
+            <input class="btn btn-danger" type="submit" value="Удалить все заказы" onsubmit="return confirm('Вы уверены?');">
         </form>
         </p>
-    <a class="btn btn-danger" href="{% url "fake" %}">Сгенерировать данные</a>
+        <h2>Сгенерировать тестовые данные</h2>
+        <br>
+        <p>
+            <a class="btn btn-success" href="{% url "fake" %}">Сгенерировать данные</a>
+        </p>
     </div>
 {% endblock %}
