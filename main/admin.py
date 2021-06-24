@@ -10,7 +10,8 @@ from main.models import (
     MainSwitch,
     Supplier,
     Transaction,
-    User, IngredientAmount,
+    User,
+    IngredientAmount,
 )
 
 

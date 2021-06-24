@@ -82,7 +82,7 @@ class DishWithIngredientsFactory(DishFactory):
     # call the IngredientAmountFactory, passing the generated dish as a dish field:
     ingredients = factory.RelatedFactory(
         IngredientAmountFactory,
-        factory_related_name='dish',
+        factory_related_name="dish",
     )
 
 
@@ -109,5 +109,6 @@ def create_data():
         try:
             TransactionFactory()
         except Exception as e:
+            # Plenty things could go wrong, difficult to set particular exception
             logger.debug(e)
             pass
