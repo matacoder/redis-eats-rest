@@ -1,5 +1,5 @@
 import datetime
-import random
+from decimal import Decimal
 
 from django.db import transaction
 from loguru import logger
@@ -9,7 +9,7 @@ from main import models
 import factory
 from factory.django import DjangoModelFactory
 
-from main.models import IngredientAmount
+from main.models import IngredientAmount, User
 
 
 class UserFactory(DjangoModelFactory):
@@ -18,7 +18,7 @@ class UserFactory(DjangoModelFactory):
 
     first_name = factory.Faker("first_name")
     last_name = factory.Faker("last_name")
-    username = factory.Faker("first_name")
+    username = factory.Sequence(lambda n: "user_%s" % n)
     cash = 10000
     is_accountant = True
     is_employee = True
@@ -37,6 +37,10 @@ class SupplierFactory(DjangoModelFactory):
         model = models.Supplier
 
     name = factory.Faker("sentence", nb_words=1, variable_nb_words=True)
+    description = factory.Faker("sentence", nb_words=9, variable_nb_words=True)
+    phone = "88001000101"
+    site = "https://redis.matakov.com"
+    address = "Leningrad"
 
 
 class IngredientFactory(DjangoModelFactory):
@@ -63,13 +67,13 @@ class DishFactory(DjangoModelFactory):
 
     name = factory.Faker("sentence", nb_words=1, variable_nb_words=True)
     type = factory.SubFactory(DishTypeFactory)
-
+    description = factory.Faker("sentence", nb_words=9, variable_nb_words=True)
     price = 600
 
 
 class IngredientAmountFactory(DjangoModelFactory):
     class Meta:
-        model = IngredientAmount
+        model = models.IngredientAmount
 
     dish = factory.SubFactory(DishFactory)
     ingredient = factory.SubFactory(IngredientFactory)
@@ -92,6 +96,7 @@ class DishDateLinkFactory(DjangoModelFactory):
 
     date = datetime.date.today()
     dish = factory.SubFactory(DishWithIngredientsFactory)
+    is_ready = True
 
 
 class TransactionFactory(DjangoModelFactory):
@@ -103,12 +108,39 @@ class TransactionFactory(DjangoModelFactory):
     user = factory.SubFactory(UserFactory)
 
 
+class CashflowFactory(DjangoModelFactory):
+    class Meta:
+        model = models.Cashflow
+
+    amount = 1000
+
+
 @transaction.atomic
-def create_data():
+def create_data(restore=True):
+    if restore:
+        # Clean database
+        all_models = [
+            models.Cashflow,
+            models.Transaction,
+            models.DishDateLink,
+            models.IngredientAmount,
+            models.Dish,
+            models.DishType,
+            models.Ingredient,
+            models.Supplier,
+            models.IngredientType,
+        ]
+        for model in all_models:
+            model.objects.all().delete()
+        for user in User.objects.all():
+            if user.username != "admin":
+                user.delete()
     for _ in range(10):
+        # Create test data
         try:
             TransactionFactory()
+            last_user = User.objects.latest("id")
+            CashflowFactory(user=last_user)
         except Exception as e:
             # Plenty things could go wrong, difficult to set particular exception
             logger.debug(e)
-            pass

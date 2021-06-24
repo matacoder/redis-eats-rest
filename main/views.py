@@ -159,4 +159,4 @@ def delete_orders(request):
 
 def create_fake_data(request):
     create_data()
-    return redirect("index")
+    return redirect("control")
