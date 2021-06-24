@@ -9,6 +9,9 @@ class MainSwitch(models.Model):
         verbose_name="Главный переключатель приложения. Можем оформлять заказы?",
     )
 
+    def __str__(self):
+        return f"Главный переключатель ({self.is_app_online})"
+
 
 class User(AbstractUser):
     is_accountant = models.BooleanField(
@@ -30,6 +33,9 @@ class IngredientType(models.Model):
     name = models.CharField(max_length=100, verbose_name="Тип ингредиента")
     picture = models.ImageField(verbose_name="Изображение типа ингредиента")
 
+    def __str__(self):
+        return f"Тип ингредиента: {self.name}"
+
 
 class Supplier(models.Model):
     name = models.CharField(max_length=100, verbose_name="Имя поставщика")
@@ -38,6 +44,9 @@ class Supplier(models.Model):
     phone = models.CharField(max_length=100, verbose_name="Телефон поставщика")
     site = models.CharField(max_length=100, verbose_name="Сайт поставщика")
     address = models.CharField(max_length=200, verbose_name="Адрес поставщика")
+
+    def __str__(self):
+        return f"Поставщик {self.name}"
 
 
 class Ingredient(models.Model):
@@ -62,12 +71,15 @@ class Ingredient(models.Model):
     )
 
     def __str__(self):
-        return f"Ingredient: {self.name} ({self.measure})"
+        return f"Ингредиент: {self.name} ({self.measure})"
 
 
 class DishType(models.Model):
     name = models.CharField(max_length=100, verbose_name="Тип блюда")
     picture = models.ImageField(verbose_name="Изображение типа блюда")
+
+    def __str__(self):
+        return f"Тип блюда {self.name}"
 
 
 class Dish(models.Model):

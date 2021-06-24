@@ -1,12 +1,15 @@
 import datetime
 import random
 
+from django.db import transaction
 from loguru import logger
 
 from main import models
 
 import factory
 from factory.django import DjangoModelFactory
+
+from main.models import IngredientAmount
 
 
 class UserFactory(DjangoModelFactory):
@@ -17,6 +20,9 @@ class UserFactory(DjangoModelFactory):
     last_name = factory.Faker("last_name")
     username = factory.Faker("first_name")
     cash = 10000
+    is_accountant = True
+    is_employee = True
+    is_cook = True
 
 
 class IngredientTypeFactory(DjangoModelFactory):
@@ -38,6 +44,10 @@ class IngredientFactory(DjangoModelFactory):
         model = models.Ingredient
 
     name = factory.Faker("sentence", nb_words=1, variable_nb_words=True)
+    measure = "грамм"
+    price = 100
+    type = factory.SubFactory(IngredientTypeFactory)
+    supplier = factory.SubFactory(SupplierFactory)
 
 
 class DishTypeFactory(DjangoModelFactory):
@@ -53,7 +63,27 @@ class DishFactory(DjangoModelFactory):
 
     name = factory.Faker("sentence", nb_words=1, variable_nb_words=True)
     type = factory.SubFactory(DishTypeFactory)
+
     price = 600
+
+
+class IngredientAmountFactory(DjangoModelFactory):
+    class Meta:
+        model = IngredientAmount
+
+    dish = factory.SubFactory(DishFactory)
+    ingredient = factory.SubFactory(IngredientFactory)
+    amount = 10
+
+
+class DishWithIngredientsFactory(DishFactory):
+    # https://factoryboy.readthedocs.io/en/latest/recipes.html
+    # Whenever the DishWithIngredientsFactory is called, it will, as a post-generation hook,
+    # call the IngredientAmountFactory, passing the generated dish as a dish field:
+    ingredients = factory.RelatedFactory(
+        IngredientAmountFactory,
+        factory_related_name='dish',
+    )
 
 
 class DishDateLinkFactory(DjangoModelFactory):
@@ -61,17 +91,19 @@ class DishDateLinkFactory(DjangoModelFactory):
         model = models.DishDateLink
 
     date = datetime.date.today()
-    dish = factory.SubFactory(DishFactory)
+    dish = factory.SubFactory(DishWithIngredientsFactory)
 
 
 class TransactionFactory(DjangoModelFactory):
     class Meta:
         model = models.Transaction
+
     amount = 500
     dish_date_link = factory.SubFactory(DishDateLinkFactory)
     user = factory.SubFactory(UserFactory)
 
 
+@transaction.atomic
 def create_data():
     for _ in range(10):
         try:
