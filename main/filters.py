@@ -12,12 +12,7 @@ class DishDateLinkFilter(filters.FilterSet):
             "date",
         ]
 
+
 class TransactionFilter(filters.FilterSet):
     date = filters.DateFromToRangeFilter(field_name="dish_date_link__date")
     user = filters.CharFilter(field_name="user__username")
-    #
-    # class Meta:
-    #     model = Transaction
-    #     # fields = [
-    #     #     "user",
-    #     # ]

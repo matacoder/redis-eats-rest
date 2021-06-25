@@ -133,7 +133,9 @@ class DishDateLinkViewSet(viewsets.ModelViewSet):
         django_filters.rest_framework.DjangoFilterBackend,
     ]
     filterset_class = DishDateLinkFilter
-    filterset_fields = ["date", ]
+    filterset_fields = [
+        "date",
+    ]
 
 
 class TransactionViewSet(viewsets.ModelViewSet):
