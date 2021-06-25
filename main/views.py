@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from rest_framework import permissions, viewsets
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
 
-from main.filters import DateFilter
+from main.filters import DishDateLinkFilter
 from main.generate_data import create_data
 from main.models import (
     Cashflow,
@@ -132,7 +132,7 @@ class DishDateLinkViewSet(viewsets.ModelViewSet):
     filter_backends = [
         django_filters.rest_framework.DjangoFilterBackend,
     ]
-    filterset_class = DateFilter
+    filterset_class = DishDateLinkFilter
     filterset_fields = ["date", ]
 
 
