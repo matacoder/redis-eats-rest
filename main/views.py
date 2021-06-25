@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from rest_framework import permissions, viewsets
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
 
+from main.filters import DateFilter
 from main.generate_data import create_data
 from main.models import (
     Cashflow,
@@ -128,8 +129,11 @@ class DishDateLinkViewSet(viewsets.ModelViewSet):
         CookPermissionOrReadOnly,
         MainSwitchPermission,
     ]
-    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
-    filterset_fields = ['date',]
+    filter_backends = [
+        django_filters.rest_framework.DjangoFilterBackend,
+    ]
+    filterset_class = DateFilter
+    filterset_fields = ["date", ]
 
 
 class TransactionViewSet(viewsets.ModelViewSet):
@@ -155,7 +159,6 @@ class CashflowViewSet(viewsets.ModelViewSet):
     serializer_class = CashflowSerializer
     permission_classes = [permissions.IsAuthenticated, AccountantPermission]
     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
-
 
 
 def control_panel(request):
