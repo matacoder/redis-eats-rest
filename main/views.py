@@ -2,6 +2,7 @@ from loguru import logger
 
 from django.shortcuts import get_object_or_404, render, redirect
 from rest_framework import permissions, viewsets
+from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
 
 from main.generate_data import create_data
 from main.models import (
@@ -19,7 +20,6 @@ from main.models import (
 from main.permissions import (
     AccountantPermission,
     CookPermissionOrReadOnly,
-    IsOwnerOrAccountantPermission,
     MainSwitchPermission,
     ReadOnly,
 )
@@ -33,6 +33,7 @@ from main.serializers import (
     SupplierSerializer,
     TransactionSerializer,
     UserSerializer,
+    UserPermissionSerializer,
 )
 from main.services import get_main_switch_status, delete_orders_logic
 
@@ -49,6 +50,21 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated, ReadOnly, MainSwitchPermission]
+
+
+class UserPermissionViewSet(
+    viewsets.GenericViewSet, ListModelMixin, RetrieveModelMixin, UpdateModelMixin
+):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+
+    queryset = User.objects.all()
+    serializer_class = UserPermissionSerializer
+    permission_classes = [
+        permissions.IsAuthenticated,
+        MainSwitchPermission,
+    ]
 
 
 class DishViewSet(viewsets.ModelViewSet):
@@ -116,7 +132,6 @@ class TransactionViewSet(viewsets.ModelViewSet):
     serializer_class = TransactionSerializer
     permission_classes = [
         permissions.IsAuthenticated,
-        IsOwnerOrAccountantPermission,
         MainSwitchPermission,
     ]
 

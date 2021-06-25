@@ -90,3 +90,23 @@ class UserSerializer(serializers.ModelSerializer):
             "cashflows",
             "transactions",
         )
+
+
+class UserPermissionSerializer(serializers.ModelSerializer):
+    first_name = serializers.ReadOnlyField()
+    last_name = serializers.ReadOnlyField()
+    username = serializers.ReadOnlyField()
+    cash = serializers.ReadOnlyField()
+
+    class Meta:
+        model = User
+        fields = (
+            "id",
+            "first_name",
+            "last_name",
+            "username",
+            "cash",
+            "is_accountant",
+            "is_employee",
+            "is_cook",
+        )

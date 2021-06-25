@@ -36,10 +36,3 @@ class CookPermissionOrReadOnly(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
         return request.user.is_cook is True
-
-
-class IsOwnerOrAccountantPermission(permissions.BasePermission):
-    def has_object_permission(self, request, view, obj):
-        if request.method in permissions.SAFE_METHODS:
-            return True
-        return request.user.is_accountant is True or obj.user == request.user
