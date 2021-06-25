@@ -36,6 +36,7 @@ from main.serializers import (
     TransactionSerializer,
     UserSerializer,
     UserPermissionSerializer,
+    FullDataTransactionSerializer,
 )
 from main.services import get_main_switch_status, delete_orders_logic
 
@@ -155,6 +156,20 @@ class TransactionViewSet(viewsets.ModelViewSet):
             amount=dish.price,
             user=self.request.user,
         )
+
+
+class FullDataTransactionViewSet(
+    viewsets.GenericViewSet,
+    ListModelMixin,
+    RetrieveModelMixin,
+):
+    queryset = Transaction.objects.all()
+    serializer_class = FullDataTransactionSerializer
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
+    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+    filterset_class = TransactionFilter
 
 
 class CashflowViewSet(viewsets.ModelViewSet):

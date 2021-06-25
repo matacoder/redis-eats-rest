@@ -59,7 +59,8 @@ class DishDateLinkSerializer(serializers.ModelSerializer):
 
 class TransactionSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(
-        slug_field="username", read_only=True,
+        slug_field="username",
+        read_only=True,
     )
     amount = serializers.ReadOnlyField()
 
