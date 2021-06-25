@@ -2,7 +2,6 @@
 
 sleep 2
 python manage.py migrate
-python manage.py migrate main
 python manage.py createcachetable
 
 if [ "$DJANGO_SUPERUSER_USERNAME" ]; then
