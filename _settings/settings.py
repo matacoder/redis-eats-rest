@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "rest_framework",
     "fcm_django",
+    "django_filters",
 ]
 
 FCM_DJANGO_SETTINGS = {"FCM_SERVER_KEY": os.environ.get("FIREBASE")}
@@ -80,6 +81,7 @@ REST_FRAMEWORK = {
     #     "rest_framework_simplejwt.authentication.JWTAuthentication",
     # ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
     # "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     # "PAGE_SIZE": 30,
 }

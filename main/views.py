@@ -1,3 +1,4 @@
+import django_filters
 from loguru import logger
 
 from django.shortcuts import get_object_or_404, render, redirect
@@ -50,6 +51,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated, ReadOnly, MainSwitchPermission]
+    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
 
 
 class UserPermissionViewSet(
@@ -105,6 +107,7 @@ class IngredientViewSet(viewsets.ModelViewSet):
         CookPermissionOrReadOnly,
         MainSwitchPermission,
     ]
+    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
 
 
 class IngredientTypeViewSet(viewsets.ModelViewSet):
@@ -125,6 +128,8 @@ class DishDateLinkViewSet(viewsets.ModelViewSet):
         CookPermissionOrReadOnly,
         MainSwitchPermission,
     ]
+    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+    filterset_fields = ['date',]
 
 
 class TransactionViewSet(viewsets.ModelViewSet):
@@ -134,6 +139,7 @@ class TransactionViewSet(viewsets.ModelViewSet):
         permissions.IsAuthenticated,
         MainSwitchPermission,
     ]
+    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
 
     def perform_create(self, serializer):
         dish_id = int(self.request.data.get("dish"))
@@ -148,6 +154,8 @@ class CashflowViewSet(viewsets.ModelViewSet):
     queryset = Cashflow.objects.all()
     serializer_class = CashflowSerializer
     permission_classes = [permissions.IsAuthenticated, AccountantPermission]
+    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+
 
 
 def control_panel(request):
