@@ -3,6 +3,7 @@ from loguru import logger
 
 from django.shortcuts import get_object_or_404, render, redirect
 from rest_framework import permissions, viewsets
+from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
 
 from main.filters import DishDateLinkFilter, TransactionFilter
@@ -37,6 +38,7 @@ from main.serializers import (
     UserSerializer,
     UserPermissionSerializer,
     FullDataTransactionSerializer,
+    DishDateLinkReadySerializer,
 )
 from main.services import get_main_switch_status, delete_orders_logic
 
@@ -204,3 +206,20 @@ def delete_orders(request):
 def create_fake_data(request):
     create_data()
     return redirect("control")
+
+
+class DishDateLinkReadyViewSet(viewsets.ModelViewSet):
+    queryset = DishDateLink.objects.all()
+    serializer_class = DishDateLinkReadySerializer
+    permission_classes = [
+        permissions.IsAuthenticated,
+        CookPermissionOrReadOnly,
+        MainSwitchPermission,
+    ]
+    filter_backends = [
+        django_filters.rest_framework.DjangoFilterBackend,
+    ]
+    filterset_class = DishDateLinkFilter
+    filterset_fields = [
+        "date",
+    ]

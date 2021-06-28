@@ -57,6 +57,12 @@ class DishDateLinkSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class DishDateLinkReadySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DishDateLink
+        fields = "__all__"
+
+
 class TransactionSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(
         slug_field="username",
