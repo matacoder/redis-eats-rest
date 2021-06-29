@@ -140,6 +140,12 @@ class Transaction(models.Model):
     amount = models.DecimalField(
         default=0, decimal_places=2, verbose_name="Сумма транзакции", max_digits=19
     )
+    serving = models.DecimalField(
+        default=1,
+        decimal_places=2,
+        verbose_name="Размер порции (0,5, 1, 2)",
+        max_digits=19,
+    )
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="transactions"
     )

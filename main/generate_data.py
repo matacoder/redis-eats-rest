@@ -103,7 +103,8 @@ class TransactionFactory(DjangoModelFactory):
     class Meta:
         model = models.Transaction
 
-    amount = 500
+    amount = 350
+    serving = 1
     dish_date_link = factory.SubFactory(DishDateLinkFactory)
     user = factory.SubFactory(UserFactory)
 
