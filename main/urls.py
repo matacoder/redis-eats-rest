@@ -17,13 +17,21 @@ urlpatterns = [
 ]
 
 router = routers.DefaultRouter()
-router.register(r"users", views.UserViewSet)
-router.register(r"permissions", views.UserPermissionViewSet)
+router.register(r"users", views.UserViewSet, basename="users")
+router.register(r"permissions", views.UserPermissionViewSet, basename="permissions")
 router.register(r"dishes", views.DishViewSet)
-router.register(r"dish-date-links", views.DishDateLinkViewSet)
-router.register(r"update-dish-status", views.DishDateLinkReadyViewSet)
-router.register(r"transactions", views.TransactionViewSet)
-router.register(r"full-data-transactions", views.FullDataTransactionViewSet)
+router.register(
+    r"dish-date-links", views.DishDateLinkViewSet, basename="dish-date-links"
+)
+router.register(
+    r"update-dish-status", views.DishDateLinkReadyViewSet, basename="update-dish-status"
+)
+router.register(r"transactions", views.TransactionViewSet, basename="transactions")
+router.register(
+    r"full-data-transactions",
+    views.FullDataTransactionViewSet,
+    basename="full-data-transactions",
+)
 router.register(r"cash-flows", views.CashflowViewSet)
 router.register(r"dish-types", views.DishTypeViewSet)
 router.register(r"suppliers", views.SupplierViewSet)
