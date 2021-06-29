@@ -103,7 +103,11 @@ class Dish(models.Model):
     )
     date_created = models.DateTimeField(auto_now_add=True)
     type = models.ForeignKey(
-        DishType, on_delete=models.SET_DEFAULT, default=None, verbose_name="Тип блюда"
+        DishType,
+        on_delete=models.SET_DEFAULT,
+        default=None,
+        verbose_name="Тип блюда",
+        related_name="dishes",
     )
     ingredients = models.ManyToManyField(
         Ingredient, related_name="dishes", through="IngredientAmount"

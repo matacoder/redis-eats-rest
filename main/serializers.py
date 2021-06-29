@@ -13,10 +13,20 @@ from main.models import (
 )
 
 
-class DishTypeSerializer(serializers.ModelSerializer):
+class DishSerializerBasic(serializers.ModelSerializer):
+    class Meta:
+        model = Dish
+        fields = "__all__"
+
+
+class DishTypeBasicSerializer(serializers.ModelSerializer):
     class Meta:
         model = DishType
         fields = "__all__"
+
+
+class DishTypeSerializer(DishTypeBasicSerializer):
+    dishes = DishSerializerBasic(many=True)
 
 
 class IngredientTypeSerializer(serializers.ModelSerializer):
@@ -40,13 +50,9 @@ class IngredientSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class DishSerializer(serializers.ModelSerializer):
-    type = DishTypeSerializer()
+class DishSerializer(DishSerializerBasic):
     ingredients = IngredientSerializer(many=True)
-
-    class Meta:
-        model = Dish
-        fields = "__all__"
+    type = DishTypeBasicSerializer()
 
 
 class DishDateLinkSerializer(serializers.ModelSerializer):
