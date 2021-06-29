@@ -72,6 +72,7 @@ class Ingredient(models.Model):
         on_delete=models.SET_DEFAULT,
         default=None,
         verbose_name="Тип ингредиента",
+        related_name="ingredients",
     )
     supplier = models.ForeignKey(
         Supplier,

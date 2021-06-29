@@ -29,7 +29,15 @@ class DishTypeSerializer(DishTypeBasicSerializer):
     dishes = DishSerializerBasic(many=True)
 
 
+class IngredientBasicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ingredient
+        fields = "__all__"
+
+
 class IngredientTypeSerializer(serializers.ModelSerializer):
+    ingredients = IngredientBasicSerializer(many=True)
+
     class Meta:
         model = IngredientType
         fields = "__all__"
@@ -41,13 +49,9 @@ class SupplierSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class IngredientSerializer(serializers.ModelSerializer):
+class IngredientSerializer(IngredientBasicSerializer):
     type = IngredientTypeSerializer()
     supplier = SupplierSerializer()
-
-    class Meta:
-        model = Ingredient
-        fields = "__all__"
 
 
 class DishSerializer(DishSerializerBasic):
