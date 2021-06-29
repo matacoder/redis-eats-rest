@@ -56,6 +56,11 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated, ReadOnly, MainSwitchPermission]
     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+    filterset_fields = [
+        "username",
+        "first_name",
+        "last_name",
+    ]
 
 
 class UserPermissionViewSet(

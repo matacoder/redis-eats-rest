@@ -24,6 +24,9 @@ class User(AbstractUser):
     cash = models.DecimalField(
         decimal_places=2, verbose_name="Баланс", max_digits=19, default=0
     )
+    position = models.CharField(
+        max_length=100, verbose_name="Должность сотрудника", default="Сотрудник"
+    )
 
     def __str__(self):
         return f"{self.get_full_name() or self.username} с балансом: {self.cash}"

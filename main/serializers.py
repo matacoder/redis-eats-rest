@@ -107,6 +107,7 @@ class UserSerializer(serializers.ModelSerializer):
             "cash",
             "cashflows",
             "transactions",
+            "position",
         )
 
 
