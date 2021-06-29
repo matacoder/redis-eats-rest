@@ -16,7 +16,7 @@ services:
     env_file:
       - ./.env
   django:
-    build: .
+    image: matakov/redis:latest
     depends_on:
       - db
     restart: always
