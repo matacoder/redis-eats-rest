@@ -14,14 +14,14 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
-      - ./.env
+      - ./.env.prod
   django:
     image: matakov/redis:latest
     depends_on:
       - db
     restart: always
     env_file:
-      - ./.env
+      - ./.env.prod
     volumes:
       - static:/code/static
       - media:/code/media
