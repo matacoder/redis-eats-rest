@@ -27,6 +27,9 @@ class User(AbstractUser):
     position = models.CharField(
         max_length=100, verbose_name="Должность сотрудника", default="Сотрудник"
     )
+    is_notify = models.BooleanField(
+        default=True, verbose_name="Уведомлять?",
+    )
 
     def __str__(self):
         return f"{self.get_full_name() or self.username} с балансом: {self.cash}"

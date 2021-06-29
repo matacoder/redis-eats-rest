@@ -96,6 +96,7 @@ class CashflowSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     cashflows = CashflowSerializer(many=True, read_only=True)
     transactions = TransactionSerializer(many=True, read_only=True)
+    cash = serializers.ReadOnlyField()
 
     class Meta:
         model = User
@@ -108,6 +109,10 @@ class UserSerializer(serializers.ModelSerializer):
             "cashflows",
             "transactions",
             "position",
+            "is_accountant",
+            "is_employee",
+            "is_cook",
+            "is_notify",
         )
 
 
@@ -128,4 +133,5 @@ class UserPermissionSerializer(serializers.ModelSerializer):
             "is_accountant",
             "is_employee",
             "is_cook",
+            "is_notify",
         )
