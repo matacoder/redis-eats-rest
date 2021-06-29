@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 import django_filters
 from loguru import logger
 
@@ -162,10 +164,11 @@ class TransactionViewSet(viewsets.ModelViewSet):
     filterset_class = TransactionFilter
 
     def perform_create(self, serializer):
-        dish_id = int(self.request.data.get("dish"))
-        dish = get_object_or_404(Dish, id=dish_id)
+        dish_link_id = int(self.request.data.get("dish_date_link"))
+        dish_link = get_object_or_404(DishDateLink, id=dish_link_id)
+        serving = Decimal(self.request.data.get("serving"))
         serializer.save(
-            amount=dish.price,
+            amount=Decimal(round(dish_link.dish.price * serving, 2)),
             user=self.request.user,
         )
 
