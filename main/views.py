@@ -117,6 +117,11 @@ class IngredientViewSet(viewsets.ModelViewSet):
         MainSwitchPermission,
     ]
     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+    filterset_fields = [
+        "type__name",
+        "price",
+        "supplier",
+    ]
 
 
 class IngredientTypeViewSet(viewsets.ModelViewSet):

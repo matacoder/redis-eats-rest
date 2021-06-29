@@ -28,7 +28,8 @@ class User(AbstractUser):
         max_length=100, verbose_name="Должность сотрудника", default="Сотрудник"
     )
     is_notify = models.BooleanField(
-        default=True, verbose_name="Уведомлять?",
+        default=True,
+        verbose_name="Уведомлять?",
     )
 
     def __str__(self):
@@ -61,7 +62,10 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=255, verbose_name="Имя ингредиента", unique=True)
     measure = models.CharField(max_length=30, verbose_name="Размерность")
     price = models.DecimalField(
-        decimal_places=2, verbose_name="Цена ингредиента", max_digits=10
+        decimal_places=2,
+        verbose_name="Цена ингредиента",
+        max_digits=10,
+        default=0,
     )
     type = models.ForeignKey(
         IngredientType,
