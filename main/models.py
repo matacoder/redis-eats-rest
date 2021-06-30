@@ -79,6 +79,7 @@ class Ingredient(models.Model):
         on_delete=models.SET_DEFAULT,
         default=None,
         verbose_name="Поставщик",
+        related_name="ingredients",
     )
 
     def __str__(self):

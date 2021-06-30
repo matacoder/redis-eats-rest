@@ -44,6 +44,8 @@ class IngredientTypeSerializer(serializers.ModelSerializer):
 
 
 class SupplierSerializer(serializers.ModelSerializer):
+    ingredients = IngredientBasicSerializer(many=True)
+
     class Meta:
         model = Supplier
         fields = "__all__"
