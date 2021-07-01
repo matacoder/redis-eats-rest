@@ -22,6 +22,7 @@ djangorestframework-simplejwt = "^4.7.1"
 fcm-django = "^0.3.10"
 loguru = "^0.5.3"
 factory-boy = "^3.2.0"
+celery = "^5.1.2"
 
 [tool.poetry.dev-dependencies]
 
