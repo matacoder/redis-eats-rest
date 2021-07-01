@@ -12,6 +12,8 @@ if [ "$DJANGO_SUPERUSER_USERNAME" ]; then
 fi
 
 python manage.py collectstatic --noinput
+
+celery -A _settings worker -l INFO
 gunicorn _settings.wsgi:application --bind 0.0.0.0:8000
 
 exec "$@"
