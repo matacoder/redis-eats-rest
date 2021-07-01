@@ -9,7 +9,7 @@ from rest_framework import permissions, viewsets
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
 
-from main.filters import DishDateLinkFilter, TransactionFilter
+from main.filters import DishDateLinkFilter, TransactionFilter, IngredientFilter
 from main.generate_data import create_data
 from main.models import (
     Cashflow,
@@ -146,7 +146,7 @@ class IngredientSumViewSet(viewsets.ModelViewSet):
         MainSwitchPermission,
     ]
     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
-    filterset_fields = []
+    filterset_class = IngredientFilter
 
 
 class IngredientTypeViewSet(viewsets.ModelViewSet):
