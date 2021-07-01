@@ -37,3 +37,9 @@ services:
     depends_on:
       - django
     restart: always
+
+  rabbitmq:
+    image: rabbitmq
+    restart: always
+    depends_on:
+      - django
