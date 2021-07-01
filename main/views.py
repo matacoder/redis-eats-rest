@@ -1,6 +1,7 @@
 from decimal import Decimal
 
 import django_filters
+from django.db.models import Sum, F
 from loguru import logger
 
 from django.shortcuts import get_object_or_404, render, redirect
@@ -41,6 +42,7 @@ from main.serializers import (
     UserPermissionSerializer,
     FullDataTransactionSerializer,
     DishDateLinkReadySerializer,
+    IngredientSumSerializer,
 )
 from main.services import get_main_switch_status, delete_orders_logic
 
@@ -113,6 +115,25 @@ class SupplierViewSet(viewsets.ModelViewSet):
 class IngredientViewSet(viewsets.ModelViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
+    permission_classes = [
+        permissions.IsAuthenticated,
+        CookPermissionOrReadOnly,
+        MainSwitchPermission,
+    ]
+    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+    filterset_fields = [
+        "type__name",
+        "price",
+        "supplier",
+    ]
+
+
+class IngredientSumViewSet(viewsets.ModelViewSet):
+    queryset = Ingredient.objects.values("name").annotate(
+        sum=F("amounts__amount") * Sum("dishes__dish_date_links__transactions__serving") * F("price")
+    ).filter(sum__gt=0).order_by('-sum')
+    logger.debug(queryset)
+    serializer_class = IngredientSumSerializer
     permission_classes = [
         permissions.IsAuthenticated,
         CookPermissionOrReadOnly,

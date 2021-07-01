@@ -131,14 +131,18 @@ class IngredientAmount(models.Model):
         related_name="amounts",
         verbose_name="Ingredient",
     )
-    amount = models.DecimalField(max_digits=5, decimal_places=1, verbose_name="Сколько")
+    amount = models.DecimalField(
+        max_digits=5, decimal_places=1, verbose_name="Сколько штук"
+    )
 
     def __str__(self):
         return f"Количество: {self.ingredient.name} by {self.amount}"
 
 
 class DishDateLink(models.Model):
-    dish = models.ForeignKey(Dish, on_delete=models.SET_DEFAULT, default=None)
+    dish = models.ForeignKey(
+        Dish, on_delete=models.SET_DEFAULT, default=None, related_name="dish_date_links"
+    )
     date = models.DateField(verbose_name="Дата планируемой подачи блюда")
     is_ready = models.BooleanField(default=False)
 
@@ -152,6 +156,7 @@ class Transaction(models.Model):
         on_delete=models.SET_DEFAULT,
         default=None,
         verbose_name="Дата и блюдо",
+        related_name="transactions",
     )
     amount = models.DecimalField(
         default=0, decimal_places=2, verbose_name="Сумма транзакции", max_digits=19
@@ -159,7 +164,7 @@ class Transaction(models.Model):
     serving = models.DecimalField(
         default=1,
         decimal_places=2,
-        verbose_name="Размер порции (0,5, 1, 2)",
+        verbose_name="Размер порции (0.5, 1, 2)",
         max_digits=19,
     )
     user = models.ForeignKey(

@@ -9,7 +9,7 @@ from main.models import (
     IngredientType,
     Supplier,
     Transaction,
-    User,
+    User, IngredientAmount,
 )
 
 
@@ -35,25 +35,41 @@ class IngredientBasicSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class IngredientTypeSerializer(serializers.ModelSerializer):
-    ingredients = IngredientBasicSerializer(many=True)
-
+class IngredientTypeBasicSerializer(serializers.ModelSerializer):
     class Meta:
         model = IngredientType
         fields = "__all__"
 
 
-class SupplierSerializer(serializers.ModelSerializer):
+class IngredientTypeSerializer(IngredientTypeBasicSerializer):
     ingredients = IngredientBasicSerializer(many=True)
 
+
+class SupplierBasicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Supplier
         fields = "__all__"
 
 
+class SupplierSerializer(SupplierBasicSerializer):
+    ingredients = IngredientBasicSerializer(many=True)
+
+
 class IngredientSerializer(IngredientBasicSerializer):
-    type = IngredientTypeSerializer()
-    supplier = SupplierSerializer()
+    type = IngredientTypeBasicSerializer()
+    supplier = SupplierBasicSerializer()
+
+
+class IngredientAmountSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = IngredientAmount
+        fields = "__all__"
+
+
+class IngredientSumSerializer(serializers.Serializer):
+    # amounts = IngredientAmountSerializer(many=True, read_only=True)
+    name = serializers.CharField(max_length=200)
+    sum = serializers.DecimalField(decimal_places=2, max_digits=19)
 
 
 class DishSerializer(DishSerializerBasic):

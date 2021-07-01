@@ -35,8 +35,13 @@ router.register(
 router.register(r"cash-flows", views.CashflowViewSet)
 router.register(r"dish-types", views.DishTypeViewSet)
 router.register(r"suppliers", views.SupplierViewSet)
-router.register(r"ingredients", views.IngredientViewSet)
-router.register(r"ingredient-types", views.IngredientTypeViewSet)
+router.register(r"ingredients", views.IngredientViewSet, basename="ingredients")
+router.register(
+    r"ingredient-types", views.IngredientTypeViewSet, basename="ingredient-types"
+)
+router.register(
+    r"ingredient-sums", views.IngredientSumViewSet, basename="ingredient-sums"
+)
 router.register(r"devices", FCMDeviceAuthorizedViewSet)
 
 # API v1
