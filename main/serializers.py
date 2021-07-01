@@ -9,7 +9,8 @@ from main.models import (
     IngredientType,
     Supplier,
     Transaction,
-    User, IngredientAmount,
+    User,
+    IngredientAmount,
 )
 
 
@@ -66,10 +67,21 @@ class IngredientAmountSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class IngredientSumSerializer(serializers.Serializer):
+class IngredientSumSerializer(serializers.ModelSerializer):
     # amounts = IngredientAmountSerializer(many=True, read_only=True)
-    name = serializers.CharField(max_length=200)
-    sum = serializers.DecimalField(decimal_places=2, max_digits=19)
+    # name = serializers.CharField(max_length=200)
+    qty = serializers.DecimalField(decimal_places=2, max_digits=19)
+    supplier = serializers.SlugRelatedField(slug_field="name", read_only=True)
+
+    class Meta:
+        model = Ingredient
+        fields = [
+            "name",
+            "measure",
+            "price",
+            "supplier",
+            "qty",
+        ]
 
 
 class DishSerializer(DishSerializerBasic):

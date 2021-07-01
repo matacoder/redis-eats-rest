@@ -22,6 +22,7 @@ from main.models import (
     Transaction,
     User,
     MainSwitch,
+    IngredientAmount,
 )
 from main.permissions import (
     AccountantPermission,
@@ -129,9 +130,14 @@ class IngredientViewSet(viewsets.ModelViewSet):
 
 
 class IngredientSumViewSet(viewsets.ModelViewSet):
-    queryset = Ingredient.objects.values("name").annotate(
-        sum=F("amounts__amount") * Sum("dishes__dish_date_links__transactions__serving") * F("price")
-    ).filter(sum__gt=0).order_by('-sum')
+    queryset = (
+        Ingredient.objects.values("name", "measure", "supplier__name", "price")
+        .annotate(
+            qty=Sum(F("amounts__amount") * F("dishes__dish_date_links__transactions__serving"))
+        )
+        .filter(qty__gt=0)
+        .order_by("-qty")
+    )
     logger.debug(queryset)
     serializer_class = IngredientSumSerializer
     permission_classes = [
@@ -140,11 +146,7 @@ class IngredientSumViewSet(viewsets.ModelViewSet):
         MainSwitchPermission,
     ]
     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
-    filterset_fields = [
-        "type__name",
-        "price",
-        "supplier",
-    ]
+    filterset_fields = []
 
 
 class IngredientTypeViewSet(viewsets.ModelViewSet):

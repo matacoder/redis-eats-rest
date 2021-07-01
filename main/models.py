@@ -136,7 +136,7 @@ class IngredientAmount(models.Model):
     )
 
     def __str__(self):
-        return f"Количество: {self.ingredient.name} by {self.amount}"
+        return f"{self.dish.name}: {self.ingredient.name} = {self.amount}"
 
 
 class DishDateLink(models.Model):
@@ -183,7 +183,7 @@ class Transaction(models.Model):
         super(Transaction, self).delete(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.user.get_full_name()} заказал {self.dish_date_link.dish.name} на {self.amount}"
+        return f"{self.user.get_full_name()} заказал {self.dish_date_link.dish.name} {self.serving} порции"
 
 
 class Cashflow(models.Model):
