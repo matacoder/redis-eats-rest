@@ -27,6 +27,8 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 CELERY_BROKER_URL = os.environ.get("BROKER_URL", "amqp://guest:guest@rabbitmq/")
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_BACKEND = "django-db"
+
 
 DEBUG = os.environ.get("DEBUG") == "1"
 
@@ -58,6 +60,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "fcm_django",
     "django_filters",
+    "django_celery_results",
+    "django_celery_beat",
 ]
 
 FCM_DJANGO_SETTINGS = {"FCM_SERVER_KEY": os.environ.get("FIREBASE")}
