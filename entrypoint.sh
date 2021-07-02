@@ -13,7 +13,9 @@ fi
 
 python manage.py collectstatic --noinput
 
-celery -A _settings worker -l INFO
 gunicorn _settings.wsgi:application --bind 0.0.0.0:8000
+echo "Connecting Celery..."
+celery -A _settings worker -l INFO
+echo "Celery connected!"
 
 exec "$@"

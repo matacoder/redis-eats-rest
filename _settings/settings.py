@@ -24,9 +24,9 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-CELERY_BROKER_URL = 'amqp://rabbitmq'
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
+CELERY_BROKER_URL = os.environ.get("BROKER_URL", "amqp://guest:guest@rabbitmq/")
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
 
 DEBUG = os.environ.get("DEBUG") == "1"
 

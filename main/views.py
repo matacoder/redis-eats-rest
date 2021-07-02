@@ -133,12 +133,14 @@ class IngredientSumViewSet(viewsets.ModelViewSet):
     queryset = (
         Ingredient.objects.values("name", "measure", "supplier__name", "price")
         .annotate(
-            qty=Sum(F("amounts__amount") * F("dishes__dish_date_links__transactions__serving"))
+            qty=Sum(
+                F("amounts__amount")
+                * F("dishes__dish_date_links__transactions__serving")
+            )
         )
         .filter(qty__gt=0)
         .order_by("-qty")
     )
-    logger.debug(queryset)
     serializer_class = IngredientSumSerializer
     permission_classes = [
         permissions.IsAuthenticated,

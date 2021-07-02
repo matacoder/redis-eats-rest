@@ -19,6 +19,7 @@ services:
     image: matakov/redis:latest
     depends_on:
       - db
+      - rabbitmq
     restart: always
     env_file:
       - ./.env.prod
@@ -45,5 +46,5 @@ services:
   rabbitmq:
     image: rabbitmq
     restart: always
-    depends_on:
-      - django
+    env_file:
+      - ./.env.prod
