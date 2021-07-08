@@ -8,8 +8,10 @@ from loguru import logger
 
 from django.shortcuts import get_object_or_404, render, redirect
 from rest_framework import permissions, viewsets
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
+from rest_framework.permissions import IsAuthenticated
 
 from main.filters import DishDateLinkFilter, TransactionFilter, IngredientFilter
 from main.generate_data import create_data
@@ -268,7 +270,8 @@ class DishDateLinkReadyViewSet(viewsets.ModelViewSet):
     ]
 
 
-@login_required
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def return_user_data(request):
     response = dict()
     response["id"] = request.user.id
