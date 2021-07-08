@@ -47,6 +47,7 @@ router.register(r"devices", FCMDeviceAuthorizedViewSet)
 # API v1
 urlpatterns += [
     path("api/v1/", include(router.urls)),
+    url("api/v1/who", views.return_user_data, name="who"),
 ]
 
 # Swagger/ReDoc

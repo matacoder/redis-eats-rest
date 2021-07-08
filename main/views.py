@@ -1,7 +1,9 @@
 from decimal import Decimal
 
 import django_filters
+from django.contrib.auth.decorators import login_required
 from django.db.models import Sum, F
+from django.http import JsonResponse
 from loguru import logger
 
 from django.shortcuts import get_object_or_404, render, redirect
@@ -219,6 +221,7 @@ class CashflowViewSet(viewsets.ModelViewSet):
     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
 
 
+@login_required
 def control_panel(request):
     data = dict()
     data["main_switch"] = get_main_switch_status()
@@ -234,6 +237,7 @@ def control_panel(request):
     return render(request, template_name="control.html", context=data)
 
 
+@login_required
 def delete_orders(request):
     date = str(request.POST.get("from"))
     logger.debug(date)
@@ -241,6 +245,7 @@ def delete_orders(request):
     return redirect("control")
 
 
+@login_required
 def create_fake_data(request):
     create_data()
     return redirect("control")
@@ -261,3 +266,11 @@ class DishDateLinkReadyViewSet(viewsets.ModelViewSet):
     filterset_fields = [
         "date",
     ]
+
+
+@login_required
+def return_user_data(request):
+    response = dict()
+    response["id"] = request.user.id
+    response["username"] = request.user.username
+    return JsonResponse(response)
