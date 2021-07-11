@@ -270,7 +270,7 @@ class DishDateLinkReadyViewSet(viewsets.ModelViewSet):
     ]
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def return_user_data(request):
     response = dict()
