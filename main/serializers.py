@@ -12,12 +12,19 @@ from main.models import (
     Transaction,
     User,
     IngredientAmount,
+    MainSwitch,
 )
 
 
 class DishSerializerBasic(serializers.ModelSerializer):
     class Meta:
         model = Dish
+        fields = "__all__"
+
+
+class MainSwitchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MainSwitch
         fields = "__all__"
 
 

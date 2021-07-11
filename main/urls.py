@@ -34,6 +34,7 @@ router.register(
     basename="full-data-transactions",
 )
 router.register(r"cash-flows", views.CashflowViewSet)
+router.register(r"main-switch", views.MainSwitchViewSet)
 router.register(r"dish-types", views.DishTypeViewSet)
 router.register(r"suppliers", views.SupplierViewSet)
 router.register(r"ingredients", views.IngredientViewSet, basename="ingredients")

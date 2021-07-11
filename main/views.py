@@ -48,6 +48,7 @@ from main.serializers import (
     FullDataTransactionSerializer,
     DishDateLinkReadySerializer,
     IngredientSumSerializer,
+    MainSwitchSerializer,
 )
 from main.services import get_main_switch_status, delete_orders_logic
 
@@ -70,6 +71,14 @@ class UserViewSet(viewsets.ModelViewSet):
         "first_name",
         "last_name",
     ]
+
+
+class MainSwitchViewSet(
+    viewsets.GenericViewSet, ListModelMixin, RetrieveModelMixin, UpdateModelMixin
+):
+    queryset = MainSwitch.objects.all()
+    serializer_class = MainSwitchSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class UserPermissionViewSet(
