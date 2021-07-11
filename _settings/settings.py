@@ -29,7 +29,6 @@ CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_BACKEND = "django-db"
 
-
 DEBUG = os.environ.get("DEBUG") == "1"
 
 ALLOWED_HOSTS = ["127.0.0.1", "redis.matakov.com"]
@@ -65,7 +64,6 @@ INSTALLED_APPS = [
 ]
 
 FCM_DJANGO_SETTINGS = {"FCM_SERVER_KEY": os.environ.get("FIREBASE")}
-
 
 AUTH_USER_MODEL = "main.User"
 

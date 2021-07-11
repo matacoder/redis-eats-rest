@@ -10,6 +10,7 @@ from rest_framework import routers
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from main import views
+from main.serializers import CustomJWTSerializer
 
 urlpatterns = [
     path("", views.index, name="index"),
@@ -72,6 +73,10 @@ urlpatterns += [
 
 # SimpleJWT
 urlpatterns += [
-    path("api/v1/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path(
+        "api/v1/token/",
+        TokenObtainPairView.as_view(serializer_class=CustomJWTSerializer),
+        name="token_obtain_pair",
+    ),
     path("api/v1/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]
